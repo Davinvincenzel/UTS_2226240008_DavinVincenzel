@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran THR</title>
+    <script type="text/javascript">
+        function totalGaji(){
+            var gajiPokok= parseInt(document.getElementById("gajiPokok").value);
+            var tunjanganTetap = parseInt(document.getElementById("tunjanganTetap").value);
+            var masaKerja = parseInt(document.getElementById("masaKerja").value);
+            var totalGaji = gajiPokok+tunjanganTetap;
+            return totalGaji;
+        }
+        function hitungTHR(){
+            var thr;
+            var totalGajis =totalGaji();
+            var masaKerja = parseInt(document.getElementById("masaKerja").value);
+            if (masaKerja>=0 && masaKerja<12)
+            {
+                thr=(masaKerja/12)*totalGajis;
+            } else if (masaKerja>=12){
+                thr=totalGajis
+            }else{
+                thr=0;
+            }
+            document.getElementById("thr").innerHTML="THR : "+thr;
+            return thr;
+            
+        }
+            function hitungPPH(){
+            var PPH;
+            var totalgajis = totalGaji();
+            if(totalgajis>=4500000){
+                PPH=(totalgajis*0.05)
+            }else if (totalGaji <4500000){
+                PPH=0;
+            }else{
+                PPH=0;
+            }
+            document.getElementById("pph").innerHTML="PPH : "+PPH;
+            return PPH;
+            
+        }
+        
+        function hitungTotalPembayaran(){
+            hitungPPH();
+            hitungTHR();
+            var PPH = hitungPPH();
+            var THR = hitungTHR();
+            var totalGajis = totalGaji();
+            var totalPembayaran=totalGajis+(THR-PPH);
+            document.getElementById("totalPembayaran").innerHTML="Total Pembayaran : "+totalPembayaran;
+            return totalPembayaran;
+            
+        }
+
+    </script>
+</head>
+
+<body>
+    <h2>Davin Vincenzel 2226240008 SI41</h2>
+    Gaji Pokok : 
+    <input type="text" id="gajiPokok"><br>
+    Tunjangan Tetap : 
+    <input type="text" id="tunjanganTetap"><br>
+    Masa Kerja :
+    <input type="text" id="masaKerja"><br>
+    <button onclick="hitungTotalPembayaran()">Hitung</button><br>
+    <p id="thr">THR : </p>
+    <p id="pph">PPH : </p>
+    <p id="totalPembayaran">Total Pembayaran : </p>
+</body>
+</html>
